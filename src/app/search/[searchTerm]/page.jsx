@@ -1,11 +1,12 @@
 import Results from "@/components/Results";
+import { apiFetch } from "@/lib/api";
 
 export default async function SearchPage({ params }) {
    const { searchTerm } = await params;
-   const res = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.API_KEY}&query=${searchTerm}&language=en-US&page=1&include_adult=false`
-   );
-   const data = await res.json();
+
+   const endpoint = `/search/movie?query=${searchTerm}&page=1&include_adult=false`;
+
+   const data = await apiFetch(endpoint);
    const results = data.results;
 
    return (
